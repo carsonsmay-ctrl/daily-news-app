@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Daily Briefing</title>
+  <meta name="description" content="Personal daily news briefing" />
+  <meta name="theme-color" content="#0f2a3d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Briefing" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <button class="nav-btn" id="prev" aria-label="Previous day">‹</button>
+      <div class="title-block">
+        <div class="kicker" id="kicker">Daily Briefing</div>
+        <h1 id="date">Loading…</h1>
+      </div>
+      <button class="nav-btn" id="next" aria-label="Next day">›</button>
+    </div>
+    <nav class="chips" id="chips" aria-label="Sections"></nav>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+  <main id="main" aria-live="polite"></main>
+
+  <footer class="foot" id="foot"></footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+name: Daily briefing
+
+# GitHub cron is in UTC with no daylight-saving support, so we schedule runs that
+# land at ~7:15 and ~7:45 AM Central in both CDT (summer) and CST (winter). The
+# script skips any run that fires before 7:00 local time or after today's
+# briefing already exists, so only one run per day actually builds. The 7:45
+# run is a backup because GitHub sometimes delays or drops scheduled runs.
+#   12:15 / 12:45 UTC = 7:15 / 7:45 CDT   (6:15 / 6:45 CST → skipped)
+#   13:15 / 13:45 UTC = 7:15 / 7:45 CST   (8:15 / 8:45 CDT → skipped, already built)
+on:
+  schedule:
+    - cron: "15 12 * * *"
+    - cron: "45 12 * * *"
+    - cron: "15 13 * * *"
+    - cron: "45 13 * * *"
+  workflow_dispatch: {} # "Run workflow" button: always rebuilds today's briefing
+  push:
+    branches: [main]
+    paths: ["public/**", "!public/data/**"] # redeploy when the front end changes
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: daily-briefing
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch briefing
+        if: github.event_name != 'push'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BRIEFING_MODEL: ${{ vars.BRIEFING_MODEL }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            node scripts/fetch.mjs --if-needed --not-before 7
+          else
+            node scripts/fetch.mjs --force
+          fi
+
+      - name: Commit briefing archive
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "briefing-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data
+          if git diff --cached --quiet; then
+            echo "No new briefing to commit."
+          else
+            git commit -m "Briefing for $(TZ=America/Chicago date +%F)"
+            git push
+          fi
+
+      # ---- GitHub Pages deploy (remove these two steps if you host on Cloudflare Pages / Vercel instead) ----
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

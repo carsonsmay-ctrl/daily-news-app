@@ -1,0 +1,121 @@
+{
+  "timezone": "America/Chicago",
+  "hoursBack": 36,
+  "archiveDays": 30,
+  "defaultMinItems": 3,
+  "defaultMaxItems": 7,
+  "googleNews": { "hl": "en-US", "gl": "US", "ceid": "US:en" },
+
+  "blockedSources": ["Yahoo Finance Video", "MarketBeat", "Simply Wall St", "AInvest", "Benzinga Insights", "Stock Titan", "GuruFocus", "IndexBox", "Defense World", "ETF Daily News", "Ticker Report", "Binance", "CoinMarketCap", "Kalkine"],
+  "preferredSources": ["Reuters", "Bloomberg", "The Wall Street Journal", "Financial Times", "Axios", "TechCrunch", "The Information", "CNBC", "Business Insider", "Fortune", "PE Hub", "Agri-Pulse", "DTN Progressive Farmer", "Successful Farming", "Farm Progress", "Beef Magazine", "Civil Eats", "AgFunderNews", "Drovers", "Brownfield Ag News", "Feedstuffs"],
+  "lowValuePatterns": ["stock price", "price target", "shares (rose|fell|gained|dropped)", "\\btop \\d+\\b", "\\bhow to\\b", "webinar", "sponsored", "horoscope", "\\bquiz\\b", "market size", "cagr", "forecast to \\d{4}", "market report", "market research", "insider (buying|selling)", "short interest", "\\boptions? (activity|trading)\\b", "(buys|sells|acquires) (new )?(shares|position)", "(boosts|trims|raises|lowers|cuts|increases|reduces) (its )?(stake|position|holdings)", "\\([A-Z0-9]+\\.[A-Z]+\\)", "\\bform (4|13[dfg]|8-k)\\b", "\\b(NYSE|NASDAQ|ASX|TSX|LSE|NSE|BSE):", "live price", "market cap", "price today", "price prediction", "/USD\\)"],
+
+  "sections": [
+    {
+      "id": "software-deals",
+      "title": "Software deals",
+      "alwaysShow": true,
+      "useWatchlist": true,
+      "minItems": 3,
+      "maxItems": 7,
+      "googleNewsQueries": [
+        "software company acquired",
+        "acquires software company",
+        "SaaS acquisition",
+        "private equity acquires software",
+        "software roll-up acquisition",
+        "take-private software deal"
+      ],
+      "feeds": [],
+      "keywords": {
+        "acquire": 3, "acquires": 3, "acquired": 3, "acquisition": 3, "buys": 2, "to buy": 2, "merger": 2,
+        "take-private": 3, "take private": 3, "roll-up": 3, "rollup": 3, "private equity": 2, "portfolio": 1,
+        "software": 3, "saas": 3, "app": 1, "platform": 1, "enterprise software": 2
+      },
+      "mustMatchAny": ["software", "saas", "app", "platform", "tech", "cloud", "ai"],
+      "llmFocus": "Software acquisitions, especially by serial acquirers and roll-up holding companies (e.g. Bending Spoons, ESW Capital/Trilogy, Constellation), take-privates of software companies, and PE software deals."
+    },
+    {
+      "id": "distressed-ma",
+      "title": "Distressed deals & M&A",
+      "minItems": 3,
+      "maxItems": 7,
+      "googleNewsQueries": [
+        "files for bankruptcy",
+        "chapter 11 bankruptcy filing",
+        "company winding down operations",
+        "startup shutting down",
+        "assets sold in bankruptcy auction",
+        "agrees to acquire billion deal"
+      ],
+      "feeds": [],
+      "keywords": {
+        "bankruptcy": 4, "chapter 11": 4, "chapter 7": 4, "insolvency": 3, "receivership": 3, "liquidation": 3,
+        "wind down": 3, "winding down": 3, "shutting down": 3, "shuts down": 3, "closing all": 2, "default": 2,
+        "restructuring": 2, "distressed": 3, "fire sale": 3, "363 sale": 3, "auction": 1,
+        "acquire": 2, "acquires": 2, "acquisition": 2, "merger": 2, "deal": 1, "billion": 1
+      },
+      "llmFocus": "Failing, winding-down, or bankrupt businesses (Chapter 11/7, liquidations, asset sales, shutdowns) and notable acquisitions with real business significance."
+    },
+    {
+      "id": "regen-ag",
+      "title": "Regenerative ag & grazing",
+      "minItems": 3,
+      "maxItems": 7,
+      "hoursBack": 72,
+      "googleNewsQueries": [
+        "regenerative agriculture",
+        "regenerative grazing",
+        "rotational grazing OR adaptive grazing OR holistic grazing",
+        "soil health farmers cover crops"
+      ],
+      "feeds": ["https://civileats.com/feed/"],
+      "keywords": {
+        "regenerative": 4, "grazing": 4, "graze": 3, "rotational": 2, "adaptive grazing": 4, "holistic": 2,
+        "soil health": 3, "cover crop": 2, "pasture": 2, "rangeland": 2, "carbon": 1, "ranch": 2, "rancher": 2, "no-till": 2
+      },
+      "mustMatchAny": ["regenerative", "graz", "soil", "pasture", "range", "cover crop", "ranch", "farm"],
+      "llmFocus": "Regenerative agriculture, soil health, and especially grazing/ranching practice, research, markets and policy."
+    },
+    {
+      "id": "cattle-markets",
+      "title": "Cattle & ag markets",
+      "minItems": 3,
+      "maxItems": 7,
+      "googleNewsQueries": [
+        "cattle futures",
+        "live cattle feeder cattle prices",
+        "cattle on feed USDA report",
+        "beef prices packers",
+        "corn soybean wheat futures"
+      ],
+      "feeds": ["https://www.beefmagazine.com/rss.xml", "https://www.feedstuffs.com/rss.xml"],
+      "keywords": {
+        "cattle": 4, "feeder": 3, "live cattle": 4, "beef": 3, "herd": 2, "packer": 2, "boxed beef": 3, "cash cattle": 3,
+        "futures": 2, "cme": 2, "usda": 2, "corn": 2, "soybean": 2, "wheat": 2, "grain": 2, "hay": 1, "screwworm": 3, "auction": 1
+      },
+      "mustMatchAny": ["cattle", "beef", "herd", "futures", "corn", "soybean", "wheat", "grain", "livestock", "usda", "hog", "dairy", "ag"],
+      "llmFocus": "Cattle and beef markets (prices, futures, herd size, packers, trade, disease) plus major grain/ag commodity market moves."
+    },
+    {
+      "id": "agtech",
+      "title": "Ag tech & startups",
+      "minItems": 3,
+      "maxItems": 7,
+      "hoursBack": 72,
+      "googleNewsQueries": [
+        "agtech startup raises",
+        "agriculture technology startup funding",
+        "agtech acquisition",
+        "farm robotics startup"
+      ],
+      "feeds": ["https://agfundernews.com/feed"],
+      "keywords": {
+        "agtech": 4, "ag tech": 4, "agrifood": 3, "foodtech": 2, "startup": 3, "raises": 3, "funding": 3, "series a": 3,
+        "series b": 3, "seed": 2, "venture": 2, "acquires": 2, "robot": 2, "drone": 2, "precision": 2, "farm": 1, "ranch": 1, "livestock": 1
+      },
+      "mustMatchAny": ["ag", "farm", "food", "crop", "livestock", "ranch", "cattle", "soil", "grower"],
+      "llmFocus": "Agriculture technology companies and startups: funding rounds, acquisitions, product launches, and notable shutdowns."
+    }
+  ]
+}

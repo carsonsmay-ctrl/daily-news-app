@@ -1,0 +1,20 @@
+# Software-deals watchlist
+# One company per line. Lines starting with # are ignored.
+# Each name becomes its own Google News search, and stories that mention a
+# watchlist name get a big ranking boost in the "Software deals" section.
+#
+# Optional: add extra search aliases after a "|" , e.g.
+#   ESW Capital | Trilogy | Ignite Enterprise Software
+
+Bending Spoons
+ESW Capital | Trilogy International | IgniteTech
+
+# Ideas you may want to uncomment later:
+# Constellation Software | Volaris | Harris Computer | Jonas Software
+# Valsoft
+# Tiny
+# Thoma Bravo
+# Vista Equity Partners
+# Francisco Partners
+# Upland Software
+# Open Text

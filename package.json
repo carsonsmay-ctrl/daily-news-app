@@ -1,0 +1,19 @@
+{
+  "name": "daily-news-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal daily news briefing PWA (software deals, distressed M&A, regen ag, cattle markets, ag tech).",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "fetch": "node scripts/fetch.mjs",
+    "fetch:force": "node scripts/fetch.mjs --force",
+    "icons": "node scripts/make-icons.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.13.0",
+    "fast-xml-parser": "^5.12.1"
+  }
+}
